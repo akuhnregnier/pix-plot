@@ -385,7 +385,7 @@ function getImageMeshData(idx) {
 
 function loadAtlasFiles() {
   for (var i=0; i<atlasCounts['32px']; i++) {
-    var url = dataUrl + 'atlas_files/32px/atlas-' + i + '.jpg';
+    var url = dataUrl + 'atlas_files/32px/atlas-' + i + '.png';
     textureLoader.load(url, handleTexture.bind(null, i),
       onProgress.bind(null, i))
   }
@@ -625,7 +625,7 @@ function loadLargeAtlasFiles() {
     rows: 2048 / 64
   }
   for (var i=0; i<atlasCounts['64px']; i++) {
-    var url = dataUrl + 'atlas_files/64px/atlas-' + i + '.jpg';
+    var url = dataUrl + 'atlas_files/64px/atlas-' + i + '.png';
     textureLoader.load(url, handleLargeTexture.bind(null, i))
   }
 }

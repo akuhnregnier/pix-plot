@@ -7,7 +7,7 @@ Documentation:
 https://github.com/YaleDHLab/pix-plot
 
 Usage:
-  python utils/process_images.py --image_files="data/*/*.jpg"
+  python utils/process_images.py --image_files="data/*/*.png"
 
                       * * *
 '''
@@ -39,7 +39,7 @@ import codecs
 flags = tf.app.flags
 flags.DEFINE_string('model_dir', '/tmp/imagenet', 'The location of downloaded imagenet model')
 flags.DEFINE_string('image_files', '', 'A glob path of images to process')
-flags.DEFINE_integer('clusters', 20, 'The number of clusters to display in the image browser')
+flags.DEFINE_integer('clusters', 28, 'The number of clusters to display in the image browser')
 flags.DEFINE_boolean('validate_images', True, 'Whether to validate images before processing')
 flags.DEFINE_string('output_folder', 'output', 'The folder where output files will be stored')
 flags.DEFINE_string('layout', 'umap', 'The layout method to use {umap|tsne}')
@@ -129,7 +129,7 @@ class PixPlot:
       out_paths = []
       for i in sorted(self.sizes, key=int, reverse=True):
         out_dir = join(self.output_dir, 'thumbs', str(i) + 'px')
-        out_path = join( out_dir, get_filename(j) + '.jpg' )
+        out_path = join( out_dir, get_filename(j) + '.png' )
         if os.path.exists(out_path) and not self.rewrite_image_thumbs:
           continue
         sizes.append(i)
@@ -329,7 +329,7 @@ class PixPlot:
     thumb_dir = join(self.output_dir, 'thumbs', str(thumb_size) + 'px')
     with open(join(self.output_dir, 'plot_data.json')) as f:
       for i in json.load(f)['positions']:
-        thumbs.append( join(thumb_dir, i[0] + '.jpg') )
+        thumbs.append( join(thumb_dir, i[0] + '.png') )
     return thumbs
 
 
@@ -354,7 +354,7 @@ class PixPlot:
     # generate a directory for images at this size if it doesn't exist
     for idx, atlas_images in enumerate(atlas_image_groups):
       print(' * creating atlas', idx + 1, 'at size', thumb_size)
-      out_path = join(out_dir, 'atlas-' + str(idx) + '.jpg')
+      out_path = join(out_dir, 'atlas-' + str(idx) + '.png')
       # write a file containing a list of images for the current montage
       tmp_file_path = join(self.output_dir, 'images_to_montage.txt')
       with codecs.open(tmp_file_path, 'w', encoding='utf-8') as out:
@@ -475,7 +475,7 @@ def main(*args, **kwargs):
   # no glob path was specified
   else:
     print('Please specify a glob path of images to process\n' +
-      'e.g. python utils/process_images.py "folder/*.jpg"')
+      'e.g. python utils/process_images.py "folder/*.png"')
 
   PixPlot(image_glob)
 
